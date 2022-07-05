@@ -5,7 +5,7 @@ const Favorites = () => {
 
   return (
     <>
-     
+     favorites
     </>
   );
 };
