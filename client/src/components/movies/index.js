@@ -128,7 +128,6 @@ const Movies = () => {
           className="backButton"
           onClick={() => {
             setPage(page - 1);
-            setLimit(12);
             nextPage(page - 1);
           }}
         >
@@ -137,12 +136,11 @@ const Movies = () => {
       ) : (
         ""
       )}
-
+<span> {`${page}`}</span>
       <span
         className="nextButton"
         onClick={() => {
           setPage(page + 1);
-          setLimit(12);
           nextPage(page + 1);
           setClickNext(true);
         }}
