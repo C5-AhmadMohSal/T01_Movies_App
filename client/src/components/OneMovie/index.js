@@ -1,8 +1,8 @@
 // OneMovie
+import "./style.css";
 
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-
 import { useNavigate, useParams } from "react-router-dom";
 
 const OneMovie = () => {
@@ -26,67 +26,63 @@ const OneMovie = () => {
   useEffect(() => {
     getOneMovie();
   }, [id]);
-  const sectionStyle = {
-    // width: "100%",
-    // height: "400px",
-    backgroundImage: `url("https://image.tmdb.org/t/p/w500/${onemovie.poster_path}")`
-  };
+  // original_language
+  //original_title
+  //overview
+  //vote_average
+  //production_companies
   return (
     <>
-      <div
-        style={{
-          // backgroundImage: `,
-        }}
-      >
-        {/* {onemovie && */}
-        {/* // onemovie.map((element, i) => { */}
-        {/* //  setPoster(element.poster_path); */}
-        {/* return ( */}
-        <>
-          <div className="moviesCared"        style={{
-          backgroundImage: `url("https://image.tmdb.org/t/p/w500/${onemovie.poster_path} ")`,}}>
-            <div className="movie_card" id="bright">
-              <div className="info_section">
-                <div className="movie_header">
-                  <img
-                    className="locandina"
-                    src={`https://image.tmdb.org/t/p/w500/${onemovie.poster_path} `}
-                  />
-                  <h1>{onemovie.title}</h1>
-                  <h4>{onemovie.release_date}</h4>
-                  {/* <span className="minutes">117 min</span> */}
-                  {/* <p className="type">Action, Crime, Fantasy</p> */}
-                </div>
-                <div className="movie_desc">
-                  <p className="text">{onemovie.overview} </p>
-                </div>{" "}
-                {/* <button
-                      className="Show-More"
-                      onClick={() => {
-                        navigate(`/OneMovie/${element.id}`);
-                      }}
-                    >
-                      Show More
-                    </button> */}
-              </div>
+<section className="section about-section gray-bg" id="about">
+        <div className="container">
+          <div className="row align-items-center flex-row-reverse">
+            <div className="col-lg-6">
+              <div className="about-text go-to">
+                <h3 className="dark-color">{onemovie.title}</h3>
+          
+                <p>
+                  the  <mark> {onemovie.title} is  </mark>
+                  {onemovie.overview}                 </p>
+                <div className="row about-list">
+                  <div className="col-md-6">
+                    <div className="media">
+                      <label>rating</label>
+                      <label>{onemovie.vote_average} </label>
+                    </div>
+                    <div className="media">
+                      <label>release_date</label>
+                      <p>{onemovie.release_date}</p>
+                    </div>
 
-              <div
-                className="blur_back bright_back"
-                style={{
-                  backgroundImage: `url("https://image.tmdb.org/t/p/w500/${onemovie.poster_path} ")`,
-                }}
-              >
-                <img
-                  className="locandina"
-                  src={`https://image.tmdb.org/t/p/w500/${onemovie.poster_path} `}
-                />
+                  </div>
+                  <div className="col-md-6">
+                    <div className="media">
+                      <label>E-mail</label>
+                      <p>ahmad.moh.sal@gmail.com</p>
+                    </div>
+                    <div className="media">
+                      <label>Phone</label> <p>962-790-</p>
+               
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="col-lg-6">
+              <div className="about-avatar">
+              <img
+                      src={`https://image.tmdb.org/t/p/w500/${onemovie.poster_path} `}
+                    />
               </div>
             </div>
           </div>
-        </>
-        {/* ); */}
-        {/* // })} */}
-      </div>
+          </div>
+      </section>
+
+
+
+
+    
     </>
   );
 };
