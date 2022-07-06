@@ -1,0 +1,26 @@
+.SEARCH-Container input {
+    padding: 10px;
+    border-color: none;
+    border: none;
+    border-radius: 15px;
+    border: -0.7px solid;
+    border: 0.1px solid #dcd9d9;
+    outline-color: #dcd9d9;
+    font-size: 16px;
+    color: var(--BlackColor);
+    outline-style: none;
+    padding-left: 15px;
+  }
+  
+.SEARCH-Container {
+    position: relative;
+  }
+  .SEARCH-Container .SEARCH-ICON {
+    position: absolute;
+    top: 30%;
+    right: 5%;
+  }
+  
+  .SEARCH-Container .SEARCH-ICON svg {
+    font-size: 20px;
+  }
