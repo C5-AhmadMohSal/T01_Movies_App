@@ -35,6 +35,7 @@
     vertical-align: middle;
     border-style: none;
   }
+ 
   /* About Me 
   ---------------------*/
   .about-text h3 {
@@ -99,13 +100,17 @@
   margin: 0;
   font-size: 15px;
   }
-  
+.about-text go-to{
+}
+
   @media (max-width: 991px) {
   .about-avatar {
     margin-top: 30px;
   }
   }
-  
+  .container p{ 
+    text-emphasis:unset;
+    color: antiquewhite;}
   .about-section .counter {
   padding: 22px 20px;
   background: #ffffff;
