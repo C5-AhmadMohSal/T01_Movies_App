@@ -7,32 +7,31 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import axios from "axios";
-import { AiOutlinePoweroff, AiOutlineSearch } from "react-icons/ai";
+import { MdOutlineFavoriteBorder } from "react-icons/md";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import Movies from "../movies";
-//   <Route path={"/movies"} element={<Movies />} />
+
 import { useNavigate } from "react-router-dom";
 
-const Navbarr = () => {
+const Navbarr = ({ setIsSearched }) => {
   const navigate = useNavigate();
   // https://api.themoviedb.org/3/movie/475557?language=en-US&api_key=1bfa430aada4409bfa6a3c5528128e8a
   const [result, setResult] = useState("");
   const [search, setSearch] = useState(false);
   const [searchtext, setSearchtext] = useState("");
-  const [isOpen, setIsOpen] = useState("");
-  const [isHover, setIsHover] = useState(false);
+
   const [message, setMessage] = useState("");
 
-  const SearshGetAll = () => {
+  const SearshGetAll = (searchtext) => {
     axios
       .get(
-        `https://api.themoviedb.org/3/movie/475557?language=en-US&api_key=1bfa430aada4409bfa6a3c5528128e8a`
+        `https://api.themoviedb.org/3/search/movie?api_key=1bfa430aada4409bfa6a3c5528128e8a&query=${searchtext}`
       )
 
       .then((result) => {
-        console.log(result, "search all product");
-        setResult(result.data.result);
+        console.log(result, "search all ");
+        setResult(result.data.results);
         //belongs_to_collection
         // setMessage("ALL Movies");
       })
@@ -41,15 +40,14 @@ const Navbarr = () => {
         setMessage(err.response.data.message);
       });
   };
-  useEffect(() => {
-    SearshGetAll();
-  }, []);
+  useEffect(() => {}, []);
 
   return (
     <>
-      <Navbar bg="light" expand="lg">
+        <div className="navvv">
+      <Navbar bg="dark"  variant="dark" expand="lg" >
         <Container fluid>
-          <Navbar.Brand href="#">TheMovieDB</Navbar.Brand>
+          <Navbar.Brand href="/" style={{color:"wheat"}} >TheMovieDB</Navbar.Brand>
           <Navbar.Toggle aria-controls="navbarScroll" />
           <Navbar.Collapse id="navbarScroll">
             <Nav
@@ -58,31 +56,17 @@ const Navbarr = () => {
               navbarScroll
             >
               <Nav.Link
-                href="/movies"
+                href="/"
                 // onClick={() => {
                 //   navigate(`/movies`)
                 // }}
-              >
+                style={{color:"wheat"}} >
                 Home
               </Nav.Link>
-              <Nav.Link href="/favorites">favorites</Nav.Link>
-              <NavDropdown title="Link" id="navbarScrollingDropdown">
-                <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
-                <NavDropdown.Item href="#action4">
-                  Another action
-                </NavDropdown.Item>
-                <NavDropdown.Divider />
-                <NavDropdown.Item href="#action5">
-                  Something else here
-                </NavDropdown.Item>
-              </NavDropdown>
-              <Nav.Link href="#" disabled>
-                Link
-              </Nav.Link>
+              <Nav.Link href="/favorites" style={{color:"wheat"}} >favorites</Nav.Link>
             </Nav>
-            <div className="SEARCH-Container">
-              <Form className="d-flex">
-                <Form.Control
+              <Form className="d-flex" style={{color:"wheat"}}>
+                <Form.Control style={{color:" bold black"}}
                   type="text"
                   placeholder="Search.."
                   className="me-2"
@@ -91,48 +75,79 @@ const Navbarr = () => {
                   onChange={(e) => {
                     setSearchtext(e.target.value);
                     setSearch(true);
+                    SearshGetAll(searchtext);
                   }}
                 />
                 {search && searchtext !== "" ? (
                   <div className="resultInSearch">
-                    {result.length &&
-                      result.map((element) => {
-                        return (
-                          <>
-                            {element.title !== null &&
-                            element.title
-                              .toLowerCase()
-                              .includes(searchtext.toLowerCase()) ? (
-                              <div
-                                className="title_photo_search"
-                                onClick={() => {
-                                  // navigate(`/oneProduct/${element.id}`);
-                                  setSearchtext("");
-                                }}
-                              >
-                                <div className="image-search">
-                                  {/* <img src={element.productImage} /> */}
-                                </div>
-                                <div className="Title-search">
-                                  {/* <p>{element.title}</p> */}
-                                </div>
-                              </div>
-                            ) : (
-                              ""
-                            )}
-                          </>
-                        );
-                      })}
+                    <>
+                      {result.original_title !== null &&
+                      result.original_title ? (
+                        <div
+                          className="title_photo_search"
+                          onClick={() => {
+                            setSearchtext("");
+                          }}
+                        >
+                        </div>
+                      ) : (
+                        ""
+                      )}
+                    </>
                   </div>
                 ) : (
                   ""
                 )}
-                <Button variant="outline-success">Search</Button>
               </Form>{" "}
-            </div>
           </Navbar.Collapse>
         </Container>
-      </Navbar>
+      </Navbar></div>
+
+      {result &&
+        result.map((element, i) => {
+          return (
+            <>
+            <div className="allmovies">
+
+              <div className="moviesCared" key={i} class="col-sm-3" 
+              onClick={() => {
+                        navigate(`/OneMovie/${element.id}`);      
+                        window.location.reload();
+                      }}>
+                <div className="movie_card" id="bright">
+                  <div className="info_section">
+                    <div className="movie_header">
+                      <img
+                        className="locandina"
+                        src={`https://image.tmdb.org/t/p/w500/${element.poster_path} `}
+                      />
+                      <h1>{element.title}</h1>
+                      <br/>
+                      <h4>  {element.release_date}</h4>
+                      < br/>
+                      <h4>IMDB Rating{element.vote_average}</h4>
+                      <h3 style={{color:"wheat" ,cursor:"pointer"}} ><MdOutlineFavoriteBorder onClick={{
+                      }}/></h3>
+                    </div>
+                  </div>
+                  <div
+                    className="blur_back bright_back"
+                    style={{
+                      backgroundImage: `url("https://image.tmdb.org/t/p/w500/${element.poster_path} ")`,
+                    }}
+                  >
+                    <img
+                      className="locandina"
+                      src={`https://image.tmdb.org/t/p/w500/${element.poster_path} `}
+                    />
+                  </div>
+                </div>
+              </div>
+              
+              </div>
+            </>
+          );
+        })}
     </>
   );
 };
