@@ -11,7 +11,7 @@ function App() {
   return <div className="App">
 <Navbarr/>
     <Routes>
-      <Route path={"/movies"} element={<Movies />} />
+      <Route path={"/"} element={<Movies />} />
       <Route path={"/favorites"} element={<Favorites/>}/>
       <Route path={"/OneMovie/:id"} element={<OneMovie/>}/>
     </Routes>
